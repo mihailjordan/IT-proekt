@@ -1,0 +1,55 @@
+﻿@model List<Department>
+
+@{
+    ViewData["Title"] = "Manage Departments";
+}
+
+<h1>All Deparments</h1>
+
+
+<a asp-action="CreateDeparment" asp-controller="WorkSpace"
+   class="btn btn-primary mb-3" style="width:auto">
+    Add new deparment
+</a>
+
+
+@foreach (var dep in Model)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            Deparment Id: @dep.Id;
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@dep.Name</h5>
+        </div>
+
+        <div class="card-footer">
+            <form asp-action="DeleteDeparment" asp-route-id="@dep.Id" method="post">
+                <a asp-action="EditDeparment" asp-controller="WorkSpace"
+                   asp-route-id="@dep.Id" class="btn btn-primary">Edit</a>
+                <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('Are you sure you want to delete deparment with name : @dep.Name')">
+                    Delete
+                </button>
+
+            </form>
+        </div>
+    </div>
+}
+
+@if (Model == null) { 
+<div class="card">
+    <div class="card-header">
+        No Deparments created yet
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">
+            Use the button below to create a Deparment
+        </h5>
+        <a class="btn btn-primary" style="width:auto"
+           asp-controller="WorkSpace" asp-action="CreateDeparment">
+            Add new deparment
+        </a>
+    </div>
+</div>
+}

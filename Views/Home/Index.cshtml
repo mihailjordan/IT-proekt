@@ -1,0 +1,35 @@
+﻿@inject SignInManager<AplicationUser> signInManager
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    @if (signInManager.IsSignedIn(User))
+    {
+
+        <div style="width: 10rem; height:10rem; display:table-cell">
+            <a asp-action="DisplayPublic" asp-controller="WorkSpace" class="btn bg-white">
+                <img src="~/images/folder.png" style="width:100%; height:100%;" />
+                Public Files
+            </a>
+        </div>
+
+        <div class="ml-4" style="width: 10rem; height:10rem; display: table-cell">
+            <a asp-action="DisplayPrivate" asp-controller="WorkSpace" class="btn bg-white">
+                <img src="~/images/folder.png" style="width:100%; height:100%;" />
+                Private Files
+            </a>
+        </div>
+
+        <div class="ml-4" style="width: 10rem; height:10rem; display: table-cell">
+            <a asp-action="UploadFile" asp-controller="WorkSpace" class="btn bg-white">
+                <img src="~/images/folder.png" style="width:100%; height:100%;" />
+                Upload Files
+            </a>
+        </div>
+
+    }
+
+</div>

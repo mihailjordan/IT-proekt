@@ -1,0 +1,36 @@
+﻿@model INS_FInal.Models.File
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{ string filePath = "~/PublicFiles/" + (Model.FilePath);
+    if (Model.IsPrivate)
+    {
+        filePath = "~/PrivateFiles/" + (Model.FilePath);
+    }
+
+    if (filePath.Contains(".mp4"))
+    {
+        <video controls="controls" width="900">
+            <source src="@Url.Content(filePath)" type="video/mp4" />
+        </video>
+
+    }
+    else if (filePath.ToLower().Contains(".jpg") || filePath.ToLower().Contains(".png"))
+    {
+        <img src="@Url.Content(filePath)" />
+    }
+    else if (filePath.ToLower().Contains(".txt"))
+    {
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <div style="font-size:14px; border:dashed">
+            <p>
+                <iframe src="@Url.Content(filePath)" frameborder="0" height="400"
+                        style="width: 95%"></iframe>
+            </p>
+        </div>
+    }
+
+}

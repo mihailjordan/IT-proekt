@@ -1,0 +1,37 @@
+﻿@model DisplayFilesViewModel
+
+@{
+    ViewData["Title"] = "Private Files";
+
+}
+
+<div class="container">
+    <div class="card-deck">
+        @foreach (var file in Model.files)
+        {
+
+            var filePath = "~/PrivateFiles/" + (file.FilePath);
+
+            <div class="card m-3" style="min-width: 10rem; max-width: 15.2%;">
+                <div class="card-header">
+                    <h5>File Name: @file.Name</h5>
+                </div>
+
+                <div class="card-body">
+                    <img class="card-img-top imageThumbnail" src="~/images/icon_file.png" asp-append-version="true" />
+                    <p>Uploaded On: @file.UploadedOn</p>
+                    <p>
+                        Uploaded By: @Model.user.UserName
+                    </p>
+                </div>
+
+                <div class="card-footer text-center">
+                    <a asp-action="ViewFile" asp-controller="WorkSpace" asp-route-fileId="@file.Id" class="btn btn-primary m-1">View</a>
+                    <a href="#" class="btn btn-danger m-1">Delete</a>
+                </div>
+            </div>
+
+        }
+    </div>
+    <a asp-action="UploadFile" asp-controller="WorkSpace" class="btn btn-primary">Upload Files</a>
+</div>

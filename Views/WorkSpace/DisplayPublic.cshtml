@@ -1,0 +1,53 @@
+﻿@model List<File> 
+
+@{ 
+    ViewData["Title"] = "Public Files";
+}
+
+<div class="container">
+    <div class="card-deck">
+        @foreach (var file in Model)
+        {
+
+            var filePath = "~/PublicFiles/" + (file.FilePath);
+            var iconUrl = "~/images/";
+            if (file.FilePath.Contains(".mp4"))
+            {
+                iconUrl += "video_icon.png";
+            } else if (file.FilePath.Contains(".txt"))
+            {
+                iconUrl += "icon_file.png";
+            }
+            else
+            {
+                iconUrl += "picture_icon.png";
+            }
+
+            <div class="card m-3" style="min-width: 10rem; max-width: 15.2%;">
+                <div class="card-header">
+                    <h5>File Name: @file.Name</h5>
+                </div>
+
+                <div class="card-body">
+                    <img class="card-img-top imageThumbnail" src="@Url.Content(iconUrl)" asp-append-version="true" />
+                    <p>Uploaded On: @file.UploadedOn</p>
+                    <p>
+                        Uploaded By: @file.UploadedBy
+                    </p>
+                </div>
+
+                <div class="card-footer text-center">
+                    <form asp-action="DeleteFile" asp-controller="WorkSpace" asp-route-fileId="@file.Id" method="post">
+                        <a asp-action="ViewFile" asp-controller="WorkSpace" asp-route-fileId="@file.Id" class="btn btn-primary m-1">View</a>
+                        <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to delete file with name : @file.Name')">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        }
+    </div>
+    <a asp-action="UploadFile" asp-controller="WorkSpace" class="btn btn-primary">Upload Files</a>
+</div>
